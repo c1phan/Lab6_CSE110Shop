@@ -42,25 +42,25 @@ class ProductItem extends HTMLElement {
   
       //changes the button's text and function to Add to Cart once the item has been removed from cart
       if (this.innerHTML === remove) {
+        counter = Number(counter) - 1;
         this.innerHTML = add;
         btn.setAttribute('onclick', 'alert("Added to Cart!")');
-        counter = Number(counter) - 1;
         myStorage.setItem('cartCount', counter);
         myStorage.setItem(one.getAttribute('id'), '0');
       }
 
       //changes the button's text and function to Remove from Cart once the item has been added to the cart
       else {
+        counter = 1 + Number(counter);
         this.innerHTML = remove;
         btn.setAttribute('onclick', 'alert("Removed from Cart!")')
-        counter = 1 + Number(counter);
         myStorage.setItem('cartCount', counter);
         myStorage.setItem(one.getAttribute('id'), '1');
       }
 
       itemsInCart.innerHTML = counter;
 
-      //sometimes the cart becomes negative... has something to do with refreshing the page...
+      //sometimes the cart becomes negative... has something to do with refreshing the page... otherwise, all good (prob)...
       if(counter <= 0){
         itemsInCart.innerHTML = 0;
       }
