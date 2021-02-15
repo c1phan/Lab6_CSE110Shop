@@ -15,10 +15,11 @@ window.addEventListener('DOMContentLoaded', () => {
   }
   //fetches the data from the website and populates it to the webpage
   else {
-    fetch('https://fakestoreapi.com/products').then(resp => resp.json())
-    .then(data => {
-      myStorage.setItem('items', JSON.stringify(data));
-      populateStorage(data);
+    fetch('https://fakestoreapi.com/products')
+      .then(response => response.json())
+      .then(data => {
+        myStorage.setItem('items', JSON.stringify(data));
+        populateStorage(data);
     });
   }
 
