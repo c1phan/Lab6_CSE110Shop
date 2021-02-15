@@ -5,12 +5,14 @@ class ProductItem extends HTMLElement {
     super();
 
     var myStorage = window.localStorage;
+    var add = "Add to Cart";
+    var c = 'class';
 
     const one = this;
     const shadowRoot = this.attachShadow({ mode: 'open' });
 
     const template = document.createElement('li');
-    template.setAttribute('class', 'product');
+    template.setAttribute(c, 'product');
 
     //sets up the style for the image of the product
     const img = template.appendChild(document.createElement('img'));
@@ -18,22 +20,23 @@ class ProductItem extends HTMLElement {
 
     //sets up the style for the name of the product
     const title = template.appendChild(document.createElement('p'));
-    title.setAttribute('class', 'title');
+    title.setAttribute(c, 'title');
 
     const price = template.appendChild(document.createElement('p'));
-    price.setAttribute('class', 'price');
+    price.setAttribute(c, 'price');
 
     const button = template.appendChild(document.createElement('button'));
-    button.innerHTML = "Add to Cart";
+    button.innerHTML = add;
     button.setAttribute('onclick', 'alert("Added to Cart!")');
     button.addEventListener('click', function () {
     const cartCount = document.getElementById('cart-count');
 
       var counter = cartCount.innerHTML;
+      var remove = "Remove from Cart";
   
       //changes the button's text and function to Add to Cart once the item has been removed from cart
-      if (this.innerHTML === "Remove from Cart") {
-        this.innerHTML = "Add to Cart";
+      if (this.innerHTML === remove) {
+        this.innerHTML = add;
         counter = parseInt(counter) - 1;
         myStorage.setItem('cartCount', counter);
         myStorage.setItem(one.getAttribute('id'), 'false');
@@ -41,9 +44,9 @@ class ProductItem extends HTMLElement {
 
       //changes the button's text and function to Remove from Cart once the item has been added to the cart
       else {
-        this.innerHTML = "Remove from Cart";
+        this.innerHTML = remove;
         button.setAttribute('onclick', 'alert("Removed from Cart!")')
-        counter = 1 + parseInt(counter);
+        counter = parseInt(counter) + 1;
         myStorage.setItem('cartCount', counter);
         myStorage.setItem(one.getAttribute('id'), 'true');
       }

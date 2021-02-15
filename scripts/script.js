@@ -4,13 +4,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
   var myStorage = window.localStorage;
 
-  if (myStorage.getItem('products')) {
-    populateStorage(JSON.parse(myStorage.getItem('products')));
+  if (myStorage.getItem('items')) {
+    populateStorage(JSON.parse(myStorage.getItem('items')));
   }
   else {
     fetch('https://fakestoreapi.com/products').then(resp => resp.json())
     .then(data => {
-      myStorage.setItem('products', JSON.stringify(data));
+      myStorage.setItem('items', JSON.stringify(data));
       populateStorage(data);
     });
   }
@@ -20,26 +20,30 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-function populateStorage(products) {
+function populateStorage(items) {
   var myStorage = window.localStorage;
-  console.log(products);
+  console.log(items);
 
-  products.forEach(product => {
+  items.forEach(item => {
     const productItem = document.getElementById('product-list').appendChild(document.createElement('product-item'));
 
-    for (key in product) {
-      productItem.setAttribute(key, product[key]);
+    for (key in item) {
+      productItem.setAttribute(key, item[key]);
     }
 
-    if (myStorage.getItem(product.id)) {
-      productItem.shadowRoot.querySelector('button').innerHTML = "Remove from cart";
+    if (myStorage.getItem(item.id)) {
+      productItem.shadowRoot.querySelector('button').innerHTML = "Remove from Cart";
+    }
+    else{
+      cart = [];
+      productItem.shadowRoot.querySelector('button').innerHTML = "Add to Cart";
     }
 
     // the structure of the products
-    productItem.shadowRoot.querySelector('img').setAttribute('src', product.image);
-    productItem.shadowRoot.querySelector('.title').innerHTML = product.title;
-    productItem.shadowRoot.querySelector('.price').innerHTML = product.price;
-    productItem.shadowRoot.querySelector('img').setAttribute('alt', product.title);
+    productItem.shadowRoot.querySelector('img').setAttribute('src', item.image);
+    productItem.shadowRoot.querySelector('.title').innerHTML = item.title;
+    productItem.shadowRoot.querySelector('.price').innerHTML = item.price;
+    productItem.shadowRoot.querySelector('img').setAttribute('alt', item.title);
 
   })
 }
