@@ -46,7 +46,7 @@ class ProductItem extends HTMLElement {
         btn.setAttribute('onclick', 'alert("Added to Cart!")');
         counter = Number(counter) - 1;
         myStorage.setItem('cartCount', counter);
-        myStorage.setItem(one.getAttribute('id'), 'false');
+        myStorage.setItem(one.getAttribute('id'), '0');
       }
 
       //changes the button's text and function to Remove from Cart once the item has been added to the cart
@@ -55,7 +55,7 @@ class ProductItem extends HTMLElement {
         btn.setAttribute('onclick', 'alert("Removed from Cart!")')
         counter = 1 + Number(counter);
         myStorage.setItem('cartCount', counter);
-        myStorage.setItem(one.getAttribute('id'), 'true');
+        myStorage.setItem(one.getAttribute('id'), '1');
       }
 
       itemsInCart.innerHTML = counter;
