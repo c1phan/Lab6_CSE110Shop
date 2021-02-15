@@ -29,11 +29,13 @@ class ProductItem extends HTMLElement {
     button.addEventListener('click', function () {
     const cartCount = document.getElementById('cart-count');
 
+      var counter = cartCount.innerHTML;
+  
       //changes the button's text and function to Add to Cart once the item has been removed from cart
       if (this.innerHTML === "Remove from Cart") {
         this.innerHTML = "Add to Cart";
-        cartCount.innerHTML = parseInt(cartCount.innerHTML) - 1;
-        myStorage.setItem('cartCount', cartCount.innerHTML);
+        counter = parseInt(counter) - 1;
+        myStorage.setItem('cartCount', counter);
         myStorage.setItem(one.getAttribute('id'), 'false');
       }
 
@@ -41,10 +43,12 @@ class ProductItem extends HTMLElement {
       else {
         this.innerHTML = "Remove from Cart";
         button.setAttribute('onclick', 'alert("Removed from Cart!")')
-        cartCount.innerHTML = 1 + parseInt(cartCount.innerHTML);
-        myStorage.setItem('cartCount', cartCount.innerHTML);
+        counter = 1 + parseInt(counter);
+        myStorage.setItem('cartCount', counter);
         myStorage.setItem(one.getAttribute('id'), 'true');
       }
+
+      cartCount.innerHTML = counter;
     })
 
     const el = document.createElement('link');
