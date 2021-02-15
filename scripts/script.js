@@ -28,7 +28,6 @@ window.addEventListener('DOMContentLoaded', () => {
 //function that populates the items saved on the local webpage
 function populateStorage(items) {
   var myStorage = window.localStorage;
-  console.log(items);
 
   items.forEach(item => {
     const productItem = document.getElementById('product-list').appendChild(document.createElement('product-item'));
