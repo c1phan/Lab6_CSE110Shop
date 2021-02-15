@@ -4,50 +4,55 @@ class ProductItem extends HTMLElement {
   constructor() {
     super();
 
-    //var
+    var myStorage = window.localStorage;
 
-    const self = this;  // used in eventListener
-    const shadow = this.attachShadow({ mode: 'open' });
+    const one = this;
+    const shadowRoot = this.attachShadow({ mode: 'open' });
 
-    const list = document.createElement('li');
-    list.setAttribute('class', 'product');
+    const template = document.createElement('li');
+    template.setAttribute('class', 'product');
 
-    const img = list.appendChild(document.createElement('img'));
+    //sets up the style for the image of the product
+    const img = template.appendChild(document.createElement('img'));
     img.setAttribute('width', '200');
 
-    const title = list.appendChild(document.createElement('p'));
+    //sets up the style for the name of the product
+    const title = template.appendChild(document.createElement('p'));
     title.setAttribute('class', 'title');
 
-    const price = list.appendChild(document.createElement('p'));
+    const price = template.appendChild(document.createElement('p'));
     price.setAttribute('class', 'price');
 
-    const button = list.appendChild(document.createElement('button'));
-    button.setAttribute('onclick', 'alert("Added to Cart!")');
+    const button = template.appendChild(document.createElement('button'));
     button.innerHTML = "Add to Cart";
+    button.setAttribute('onclick', 'alert("Added to Cart!")');
     button.addEventListener('click', function () {
-      const cartCount = document.getElementById('cart-count');
+    const cartCount = document.getElementById('cart-count');
 
-      if (this.innerHTML === "Add to Cart") {
-        this.innerHTML = "Remove from Cart";
-        button.setAttribute('onclick', 'alert("Removed from Cart!")')
-        cartCount.innerHTML = parseInt(cartCount.innerHTML) + 1;
-        localStorage.setItem(self.getAttribute('id'), 'true');
-        localStorage.setItem('cartCount', cartCount.innerHTML);
-      }
-      else {
+      //changes the button's text and function to Add to Cart once the item has been removed from cart
+      if (this.innerHTML === "Remove from Cart") {
         this.innerHTML = "Add to Cart";
         cartCount.innerHTML = parseInt(cartCount.innerHTML) - 1;
-        localStorage.setItem(self.getAttribute('id'), 'false');
-        localStorage.setItem('cartCount', cartCount.innerHTML);
+        myStorage.setItem('cartCount', cartCount.innerHTML);
+        myStorage.setItem(one.getAttribute('id'), 'false');
+      }
+
+      //changes the button's text and function to Remove from Cart once the item has been added to the cart
+      else {
+        this.innerHTML = "Remove from Cart";
+        button.setAttribute('onclick', 'alert("Removed from Cart!")')
+        cartCount.innerHTML = 1 + parseInt(cartCount.innerHTML);
+        myStorage.setItem('cartCount', cartCount.innerHTML);
+        myStorage.setItem(one.getAttribute('id'), 'true');
       }
     })
 
-    const linkElem = document.createElement('link');
-    linkElem.setAttribute('rel', 'stylesheet');
-    linkElem.setAttribute('href', './styles/styles.css');
+    const el = document.createElement('link');
+    el.setAttribute('rel', 'stylesheet');
+    el.setAttribute('href', './styles/styles.css');
 
-    shadow.appendChild(linkElem);
-    shadow.appendChild(list);
+    shadowRoot.appendChild(el);
+    shadowRoot.appendChild(template);
   }
 
 }

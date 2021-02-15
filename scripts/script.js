@@ -38,8 +38,8 @@ function populateStorage(products) {
     // the structure of the products
     productItem.shadowRoot.querySelector('img').setAttribute('src', product.image);
     productItem.shadowRoot.querySelector('.title').innerHTML = product.title;
-    productItem.shadowRoot.querySelector('img').setAttribute('alt', product.title);
     productItem.shadowRoot.querySelector('.price').innerHTML = product.price;
+    productItem.shadowRoot.querySelector('img').setAttribute('alt', product.title);
 
   })
 }
