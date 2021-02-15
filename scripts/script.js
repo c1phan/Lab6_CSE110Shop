@@ -9,10 +9,11 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('cart-count').textContent = myStorage.getItem('cartCount');
   }
 
+  //populates the products
   if (myStorage.getItem('items')) {
     populateStorage(JSON.parse(myStorage.getItem('items')));
   }
-  //fetches the data from teh website and populates it to the webpage
+  //fetches the data from the website and populates it to the webpage
   else {
     fetch('https://fakestoreapi.com/products').then(resp => resp.json())
     .then(data => {
@@ -23,6 +24,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 });
 
+
+//function that populates the items saved on the local webpage
 function populateStorage(items) {
   var myStorage = window.localStorage;
   console.log(items);
@@ -40,7 +43,7 @@ function populateStorage(items) {
       productItem.shadowRoot.querySelector('button').setAttribute('onclick', 'alert("Removed from Cart!")')
     }
 
-    // the structure of the products
+    // the structure of the products' view (UI/UX?)
     productItem.shadowRoot.querySelector('img').setAttribute('src', item.image);
     productItem.shadowRoot.querySelector('.title').innerHTML = item.title;
     productItem.shadowRoot.querySelector('.price').innerHTML = item.price;
