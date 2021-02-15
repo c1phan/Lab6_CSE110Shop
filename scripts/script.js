@@ -7,6 +7,7 @@ window.addEventListener('DOMContentLoaded', () => {
   if (myStorage.getItem('items')) {
     populateStorage(JSON.parse(myStorage.getItem('items')));
   }
+  //fetches the data from teh website and populates it to the webpage
   else {
     fetch('https://fakestoreapi.com/products').then(resp => resp.json())
     .then(data => {
@@ -15,6 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  //checking to see how many things are in the cart initially
   if (myStorage.getItem('cartCount')) {
     document.getElementById('cart-count').textContent = myStorage.getItem('cartCount');
   }
@@ -31,6 +33,7 @@ function populateStorage(items) {
       productItem.setAttribute(key, item[key]);
     }
 
+    //this is for when the user goes back to this webpage with product(s) already added to their cart
     if (myStorage.getItem(item.id)) {
       productItem.shadowRoot.querySelector('button').innerHTML = "Remove from Cart";
       productItem.shadowRoot.querySelector('button').setAttribute('onclick', 'alert("Removed from Cart!")')

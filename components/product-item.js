@@ -22,13 +22,16 @@ class ProductItem extends HTMLElement {
     const title = template.appendChild(document.createElement('p'));
     title.setAttribute(c, 'title');
 
+    //sets up the style for the price of the product
     const price = template.appendChild(document.createElement('p'));
     price.setAttribute(c, 'price');
 
+    //sets up the button of the product to automatically be 'Add to Cart'
     const btn = template.appendChild(document.createElement('button'));
     btn.innerHTML = add;
     btn.setAttribute('onclick', 'alert("Added to Cart!")');
 
+    //this is to change the product's button when clicked
     btn.addEventListener('click', function () {
     const itemsInCart = document.getElementById('cart-count');
 
@@ -55,6 +58,7 @@ class ProductItem extends HTMLElement {
 
       itemsInCart.innerHTML = counter;
 
+      //sometimes the cart becomes negative... has something to do with refreshing the page...
       if(counter <= 0){
         itemsInCart.innerHTML = 0;
       }
