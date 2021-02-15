@@ -31,6 +31,8 @@ class ProductItem extends HTMLElement {
     btn.innerHTML = add;
     btn.setAttribute('onclick', 'alert("Added to Cart!")');
 
+    shadowRoot.appendChild(template);
+
     //this is to change the product's button when clicked
     btn.addEventListener('click', function () {
     const itemsInCart = document.getElementById('cart-count');
@@ -64,12 +66,12 @@ class ProductItem extends HTMLElement {
       }
     })
 
+    
     const el = document.createElement('link');
     el.setAttribute('rel', 'stylesheet');
     el.setAttribute('href', './styles/styles.css');
 
     shadowRoot.appendChild(el);
-    shadowRoot.appendChild(template);
   }
 
 }
