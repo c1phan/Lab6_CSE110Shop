@@ -33,10 +33,7 @@ function populateStorage(items) {
 
     if (myStorage.getItem(item.id)) {
       productItem.shadowRoot.querySelector('button').innerHTML = "Remove from Cart";
-    }
-    else{
-      cart = [];
-      productItem.shadowRoot.querySelector('button').innerHTML = "Add to Cart";
+      productItem.shadowRoot.querySelector('button').setAttribute('onclick', 'alert("Removed from Cart!")')
     }
 
     // the structure of the products

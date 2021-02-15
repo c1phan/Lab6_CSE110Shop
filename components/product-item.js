@@ -28,15 +28,17 @@ class ProductItem extends HTMLElement {
     const button = template.appendChild(document.createElement('button'));
     button.innerHTML = add;
     button.setAttribute('onclick', 'alert("Added to Cart!")');
-    button.addEventListener('click', function () {
-    const cartCount = document.getElementById('cart-count');
 
-      var counter = cartCount.innerHTML;
+    button.addEventListener('click', function () {
+    const itemsInCart = document.getElementById('cart-count');
+
+      var counter = itemsInCart.innerHTML;
       var remove = "Remove from Cart";
   
       //changes the button's text and function to Add to Cart once the item has been removed from cart
       if (this.innerHTML === remove) {
         this.innerHTML = add;
+        button.setAttribute('onclick', 'alert("Added to Cart!")');
         counter = parseInt(counter) - 1;
         myStorage.setItem('cartCount', counter);
         myStorage.setItem(one.getAttribute('id'), 'false');
@@ -51,7 +53,11 @@ class ProductItem extends HTMLElement {
         myStorage.setItem(one.getAttribute('id'), 'true');
       }
 
-      cartCount.innerHTML = counter;
+      itemsInCart.innerHTML = counter;
+
+      if(counter <= 0){
+        itemsInCart.innerHTML = 0;
+      }
     })
 
     const el = document.createElement('link');
