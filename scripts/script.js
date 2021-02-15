@@ -4,6 +4,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
   var myStorage = window.localStorage;
 
+  //checking to see how many things are in the cart initially
+  if (myStorage.getItem('cartCount')) {
+    document.getElementById('cart-count').textContent = myStorage.getItem('cartCount');
+  }
+
   if (myStorage.getItem('items')) {
     populateStorage(JSON.parse(myStorage.getItem('items')));
   }
@@ -16,10 +21,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  //checking to see how many things are in the cart initially
-  if (myStorage.getItem('cartCount')) {
-    document.getElementById('cart-count').textContent = myStorage.getItem('cartCount');
-  }
 });
 
 function populateStorage(items) {
