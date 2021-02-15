@@ -39,7 +39,7 @@ class ProductItem extends HTMLElement {
       if (this.innerHTML === remove) {
         this.innerHTML = add;
         button.setAttribute('onclick', 'alert("Added to Cart!")');
-        counter = parseInt(counter) - 1;
+        counter = Number(counter) - 1;
         myStorage.setItem('cartCount', counter);
         myStorage.setItem(one.getAttribute('id'), 'false');
       }
@@ -48,7 +48,7 @@ class ProductItem extends HTMLElement {
       else {
         this.innerHTML = remove;
         button.setAttribute('onclick', 'alert("Removed from Cart!")')
-        counter = parseInt(counter) + 1;
+        counter = 1 + Number(counter);
         myStorage.setItem('cartCount', counter);
         myStorage.setItem(one.getAttribute('id'), 'true');
       }
