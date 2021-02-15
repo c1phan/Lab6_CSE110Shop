@@ -31,23 +31,23 @@ function populateStorage(items) {
   var myStorage = window.localStorage;
 
   items.forEach(item => {
-    const productItem = document.getElementById('product-list').appendChild(document.createElement('product-item'));
+    const thisItem = document.getElementById('product-list').appendChild(document.createElement('product-item'));
 
     for (key in item) {
-      productItem.setAttribute(key, item[key]);
+      thisItem.setAttribute(key, item[key]);
     }
 
     //this is for when the user goes back to this webpage with product(s) already added to their cart
     if (myStorage.getItem(item.id)) {
-      productItem.shadowRoot.querySelector('button').innerHTML = "Remove from Cart";
-      productItem.shadowRoot.querySelector('button').setAttribute('onclick', 'alert("Removed from Cart!")')
+      thisItem.shadowRoot.querySelector('button').innerHTML = "Remove from Cart";
+      thisItem.shadowRoot.querySelector('button').setAttribute('onclick', 'alert("Removed from Cart!")')
     }
 
     // the structure of the products' view (UI/UX?)
-    productItem.shadowRoot.querySelector('img').setAttribute('src', item.image);
-    productItem.shadowRoot.querySelector('.title').innerHTML = item.title;
-    productItem.shadowRoot.querySelector('.price').innerHTML = item.price;
-    productItem.shadowRoot.querySelector('img').setAttribute('alt', item.title);
+    thisItem.shadowRoot.querySelector('img').setAttribute('src', item.image);
+    thisItem.shadowRoot.querySelector('.title').innerHTML = item.title;
+    thisItem.shadowRoot.querySelector('.price').innerHTML = item.price;
+    thisItem.shadowRoot.querySelector('img').setAttribute('alt', item.title);
 
   })
 }
