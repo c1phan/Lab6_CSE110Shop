@@ -10,6 +10,8 @@ class ProductItem extends HTMLElement {
 
     const one = this;
     const shadowRoot = this.attachShadow({ mode: 'open' });
+
+    //do i need this anymore???
     let styleGuide = document.createElement("styleGuide");
     styleGuide.innerHTML = `
     <style>
@@ -76,6 +78,7 @@ class ProductItem extends HTMLElement {
         overflow: auto;
         text-overflow: unset;
     }`;
+    
 
     const template = document.createElement('li');
     template.setAttribute(c, 'product');
