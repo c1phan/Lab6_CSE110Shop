@@ -1,38 +1,45 @@
 // Script.js
 
 window.addEventListener('DOMContentLoaded', () => {
-  
-  myStorage = window.localStorage;
 
-  //fetches data if it is not within local storage
-  if(!localStorage.getItem('products')) {
-    fetch('https://fakestoreapi.com/products')
-      .then(response => response.json())
-      .then(data => {
-        console.log("inside fetch if" + data);
-        localStorage.setItem('products', JSON.stringify(data));
-        populateStorage(data);
-      });
+  var myStorage = window.localStorage;
+
+  if (myStorage.getItem('products')) {
+    populateStorage(JSON.parse(myStorage.getItem('products')));
   }
-  //reads through the response.json() file if data is already on local storage
-  else{
-    response.json().then(data => {
-      Body.blob();
-      console.log("blob:" + Body.blob());
+  else {
+    fetch('https://fakestoreapi.com/products').then(resp => resp.json())
+    .then(data => {
+      myStorage.setItem('products', JSON.stringify(data));
       populateStorage(data);
     });
   }
+
+  if (myStorage.getItem('cartCount')) {
+    document.getElementById('cart-count').textContent = myStorage.getItem('cartCount');
+  }
 });
 
-
-//method that sets up the style for each element in the array
 function populateStorage(products) {
+  var myStorage = window.localStorage;
   console.log(products);
+
   products.forEach(product => {
     const productItem = document.getElementById('product-list').appendChild(document.createElement('product-item'));
 
-    for(key in product) {
+    for (key in product) {
       productItem.setAttribute(key, product[key]);
     }
+
+    if (myStorage.getItem(product.id)) {
+      productItem.shadowRoot.querySelector('button').innerHTML = "Remove from cart";
+    }
+
+    // the structure of the products
+    productItem.shadowRoot.querySelector('img').setAttribute('src', product.image);
+    productItem.shadowRoot.querySelector('.title').innerHTML = product.title;
+    productItem.shadowRoot.querySelector('img').setAttribute('alt', product.title);
+    productItem.shadowRoot.querySelector('.price').innerHTML = product.price;
+
   })
 }
