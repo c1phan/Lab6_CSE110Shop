@@ -15,8 +15,8 @@ class ProductItem extends HTMLElement {
     template.setAttribute(c, 'product');
 
     //sets up the style for the image of the product
-    const img = template.appendChild(document.createElement('img'));
-    img.setAttribute('width', '200');
+    const image = template.appendChild(document.createElement('img'));
+    image.setAttribute('width', '200');
 
     //sets up the style for the name of the product
     const title = template.appendChild(document.createElement('p'));
@@ -25,11 +25,11 @@ class ProductItem extends HTMLElement {
     const price = template.appendChild(document.createElement('p'));
     price.setAttribute(c, 'price');
 
-    const button = template.appendChild(document.createElement('button'));
-    button.innerHTML = add;
-    button.setAttribute('onclick', 'alert("Added to Cart!")');
+    const btn = template.appendChild(document.createElement('button'));
+    btn.innerHTML = add;
+    btn.setAttribute('onclick', 'alert("Added to Cart!")');
 
-    button.addEventListener('click', function () {
+    btn.addEventListener('click', function () {
     const itemsInCart = document.getElementById('cart-count');
 
       var counter = itemsInCart.innerHTML;
@@ -38,7 +38,7 @@ class ProductItem extends HTMLElement {
       //changes the button's text and function to Add to Cart once the item has been removed from cart
       if (this.innerHTML === remove) {
         this.innerHTML = add;
-        button.setAttribute('onclick', 'alert("Added to Cart!")');
+        btn.setAttribute('onclick', 'alert("Added to Cart!")');
         counter = Number(counter) - 1;
         myStorage.setItem('cartCount', counter);
         myStorage.setItem(one.getAttribute('id'), 'false');
@@ -47,7 +47,7 @@ class ProductItem extends HTMLElement {
       //changes the button's text and function to Remove from Cart once the item has been added to the cart
       else {
         this.innerHTML = remove;
-        button.setAttribute('onclick', 'alert("Removed from Cart!")')
+        btn.setAttribute('onclick', 'alert("Removed from Cart!")')
         counter = 1 + Number(counter);
         myStorage.setItem('cartCount', counter);
         myStorage.setItem(one.getAttribute('id'), 'true');
